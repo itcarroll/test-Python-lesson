@@ -1,6 +1,8 @@
 SHELL := /bin/bash
 BASEURL ?= /
-OWNER := sesync-ci
+OWNER := SESYNC-ci
+export GEM_HOME = $(HOME)/.gem
+
 .DEFAULT_GOAL := preview
 
 .PHONY: release archive preview course slides upstream
@@ -22,8 +24,8 @@ SLIDES_IPYNB := $(shell find slides/ -name "*.ipynb" -exec basename {} \;)
 # look up files for trainees in Jekyll _config.yml
 HANDOUTS := $(shell ruby -e "require 'yaml';puts YAML.load_file('docs/_data/lesson.yml')['handouts']")
 
-# # look up all files whose modification should trigger rebuild of Jekyll site (erring conservatively)
-# SITE = $(shell find ./docs/ ! -name _site)
+# look up all files whose modification should trigger rebuild of Jekyll site (erring conservatively)
+SITE := $(shell find docs/ ! -path "docs/_site*")
 
 # # Merge with (upstream) lesson-style Repository
 
@@ -40,10 +42,12 @@ upstream: | .git/refs/remotes/upstream
 
 # target to identify slide files
 slides: $(SLIDES)
+
 # targets to trigger the order-only prerequisite just once
 $(SLIDES): | docs/_slides
 docs/_slides:
 	mkdir -p docs/_slides
+
 ## cannot use a pattern as the next three targets, because
 ## the targets are only a subset of docs/_slides/%.md and
 ## they have different recipes
@@ -54,8 +58,6 @@ $(addprefix docs/_slides/,$(SLIDES_RMD:.Rmd=.md)): docs/_slides/%.md: bin/build_
 $(addprefix docs/_slides/,$(SLIDES_PMD:.ipynb=.md)): docs/_slides/%.md: bin/build_ipynb.py /slides/%.ipynb 
 	@$<
 
-SITE = $(shell find docs/ ! -path "docs/_site*")
-export GEM_HOME = $(HOME)/.gem
 # target to build local jekyll site for RStudio Server preview
 preview: slides | docs/_site
 docs/_site: $(SITE) | docs/Gemfile.lock
@@ -84,8 +86,11 @@ course: upstream $(addprefix ../../handouts/,$(HANDOUTS:worksheet%=worksheet-$(L
 	mkdir -p $(dir $@)
 	cp -r $< $@
 
+# # Archive
+# 
+# call the archive target with a command line parameter for DATE
+
 # target to archive a lesson
-## call the archive target with a command line parameter for DATE
 archive: | docs/_archive
 	cp docs/_views/course.md docs/_archive/$(DATE)-index.md
 	pushd docs && bundle exec jekyll build --config _config.yml,_archive.yml && popd

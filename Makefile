@@ -1,15 +1,17 @@
 SHELL := /bin/bash
 BASEURL ?= /
-OWNER ?= SESYNC-ci
+OWNER := SESYNC-ci
 export GEM_HOME = $(HOME)/.gem
 
+# # Make Settings
+
 .DEFAULT_GOAL := preview
-
 .PHONY: release archive preview course slides upstream
-
-# do not run rules in parallel
-## because bin/build_rmd.R (bin/build_ipynb.py) runs over all .Rmd (.ipynb) slides
+# do not run rules in parallel because bin/build_rmd.R 
+# (bin/build_ipynb.py) runs over all .Rmd (.ipynb) slides
 .NOTPARALLEL:
+
+# # Read Slide/File Names
 
 # look up lesson number and slides in Jekyll _config.yml
 LESSON := $(shell ruby -e "require 'yaml';puts YAML.load_file('docs/_data/lesson.yml')['lesson']")
@@ -21,13 +23,13 @@ SLIDES_MD := $(shell find slides/ -name "*.md" -exec basename {} \;)
 SLIDES_RMD := $(shell find slides/ -name "*.Rmd" -exec basename {} \;)
 SLIDES_IPYNB := $(shell find slides/ -name "*.ipynb" -exec basename {} \;)
 
-# look up files for trainees in Jekyll _config.yml
+# look up handouts (worksheets and data) for trainees in _data/lesson.yml
 HANDOUTS := $(shell ruby -e "require 'yaml';puts YAML.load_file('docs/_data/lesson.yml')['handouts']")
 
-# look up all files whose modification should trigger rebuild of Jekyll site (erring conservatively)
+# look up files whose modification require Jekyll build (erring conservatively)
 SITE := $(shell find docs/ ! -path "docs/_site*")
 
-# # Merge with (upstream) lesson-style Repository
+# # Merge with Upstream Repo "lesson-style"
 
 # target to merge changes
 upstream: | .git/refs/remotes/upstream
@@ -39,6 +41,8 @@ upstream: | .git/refs/remotes/upstream
 .git/refs/remotes/upstream:
 	git remote add -f upstream "git@github.com:$(OWNER)/lesson-style.git"
 	git branch -t upstream upstream/master
+
+# # Build Slides for Jekyll Site
 
 # target to identify slide files
 slides: $(SLIDES)
@@ -58,6 +62,8 @@ $(addprefix docs/_slides/,$(SLIDES_RMD:.Rmd=.md)): docs/_slides/%.md: bin/build_
 $(addprefix docs/_slides/,$(SLIDES_PMD:.ipynb=.md)): docs/_slides/%.md: bin/build_ipynb.py /slides/%.ipynb 
 	@$<
 
+# # Build the Jekyll Site locally
+
 # target to build local jekyll site for RStudio Server preview
 preview: slides | docs/_site
 docs/_site: $(SITE) | docs/Gemfile.lock
@@ -67,11 +73,11 @@ docs/Gemfile.lock:
 	pushd docs && bundle install && popd
 
 # # Copy Handouts and Data for a Course
-#
+# 
 # make target "course" is called within the handouts Makefile,
 # assumed to be at ../../Makefile
-#
-# files matching "worksheet*" will be renumbered by lesson numbers
+# 
+# files matching "worksheet*" will be numbered by lesson number
 
 # target to update style and identify course handout files
 course: upstream $(addprefix ../../handouts/,$(HANDOUTS:worksheet%=worksheet-$(LESSON)%))
@@ -94,8 +100,7 @@ course: upstream $(addprefix ../../handouts/,$(HANDOUTS:worksheet%=worksheet-$(L
 archive: | docs/_archive
 	cp docs/_views/course.md docs/_archive/$(DATE)-index.md
 	pushd docs && bundle exec jekyll build --config _config.yml,_archive.yml && popd
-	echo -e "---\n---\n" > docs/_archive/$(DATE)-index.html
-	cat docs/_site/$(subst -,/,$(DATE))/index.html >> docs/_archive/$(DATE)-index.html
+	echo -e "---\n---\n$$(cat docs/_site/$(subst -,/,$(DATE))/index.html)" > docs/_archive/$(DATE)-index.html
 	rm docs/_archive/$(DATE)-index.md
 docs/_archive:
 	mkdir docs/_archive

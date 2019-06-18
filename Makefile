@@ -1,8 +1,3 @@
-SHELL := /bin/bash
-BASEURL ?= /
-OWNER := SESYNC-ci
-export GEM_HOME = $(HOME)/.gem
-
 # # Make Settings
 
 .DEFAULT_GOAL := preview
@@ -10,6 +5,10 @@ export GEM_HOME = $(HOME)/.gem
 # do not run rules in parallel because bin/build_rmd.R 
 # (bin/build_ipynb.py) runs over all .Rmd (.ipynb) slides
 .NOTPARALLEL:
+# use user library for bundle install
+export GEM_HOME = $(HOME)/.gem
+# execute recipes with bash shell for pushd/popd
+SHELL := /bin/bash
 
 # # Read Slide/File Names
 
@@ -30,6 +29,9 @@ HANDOUTS := $(shell ruby -e "require 'yaml';puts YAML.load_file('docs/_data/less
 SITE := $(shell find docs/ ! -path "docs/_site*")
 
 # # Merge with Upstream Repo "lesson-style"
+
+# specify the owner of the upstream and current repo
+OWNER := SESYNC-ci
 
 # target to merge changes
 upstream: | .git/refs/remotes/upstream
@@ -67,7 +69,7 @@ $(addprefix docs/_slides/,$(SLIDES_PMD:.ipynb=.md)): docs/_slides/%.md: bin/buil
 # target to build local jekyll site for RStudio Server preview
 preview: slides | docs/_site
 docs/_site: $(SITE) | docs/Gemfile.lock
-	pushd docs && bundle exec jekyll build --baseurl=$(BASEURL)$(RSTUDIO_PROXY) && popd
+	pushd docs && bundle exec jekyll build --baseurl=$(RSTUDIO_PROXY) && popd
 	touch docs/_site
 docs/Gemfile.lock:
 	pushd docs && bundle install && popd
@@ -75,7 +77,7 @@ docs/Gemfile.lock:
 # # Copy Handouts and Data for a Course
 # 
 # make target "course" is called within the handouts Makefile,
-# assumed to be at ../../Makefile
+# whose own recipes put it at ../../Makefile
 # 
 # files matching "worksheet*" will be numbered by lesson number
 
@@ -100,7 +102,8 @@ course: upstream $(addprefix ../../handouts/,$(HANDOUTS:worksheet%=worksheet-$(L
 archive: | docs/_archive
 	cp docs/_views/course.md docs/_archive/$(DATE)-index.md
 	pushd docs && bundle exec jekyll build --config _config.yml,_archive.yml && popd
-	echo -e "---\n---\n$$(cat docs/_site/$(subst -,/,$(DATE))/index.html)" > docs/_archive/$(DATE)-index.html
+	echo -e "---\n---\n" > docs/_archive/$(DATE)-index.html
+	cat docs/_site/$(subst -,/,$(DATE))/index.html >> docs/_archive/$(DATE)-index.html
 	rm docs/_archive/$(DATE)-index.md
 docs/_archive:
 	mkdir docs/_archive

@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 BASEURL ?= /
-OWNER := SESYNC-ci
+OWNER ?= SESYNC-ci
 export GEM_HOME = $(HOME)/.gem
 
 .DEFAULT_GOAL := preview
@@ -94,7 +94,8 @@ course: upstream $(addprefix ../../handouts/,$(HANDOUTS:worksheet%=worksheet-$(L
 archive: | docs/_archive
 	cp docs/_views/course.md docs/_archive/$(DATE)-index.md
 	pushd docs && bundle exec jekyll build --config _config.yml,_archive.yml && popd
-	echo -e "---\n---\n$$(cat docs/_site/$(subst -,/,$(DATE))/index.html)" > docs/_archive/$(DATE)-index.html
+	echo -e "---\n---\n" > docs/_archive/$(DATE)-index.html
+	cat docs/_site/$(subst -,/,$(DATE))/index.html >> docs/_archive/$(DATE)-index.html
 	rm docs/_archive/$(DATE)-index.md
 docs/_archive:
 	mkdir docs/_archive

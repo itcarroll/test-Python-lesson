@@ -7,44 +7,42 @@ lessons. These files shall **only** be modified in the `lesson-style`
 repository.
 
 ```
-lesson-style.git
-├── bin/
-│   ├── build_worksheet.R (under development)
-│   ├── build_rmd.R
-│   └── build_ipynb.py (under development)
-├── CONTRIBUTING.md
-├── data -> /nfs/public-data/training
-├── docs
-│   ├── _archive.yml
-│   ├── assets/css/*
-│   ├── _config.yml
-│   ├── Gemfile
-│   ├── _includes/*
-│   ├── _layouts/*
-│   └── _views/*
-├── LICENSE (under development)
-└── Makefile
+ lesson-style.git
+ ├── bin/
+ │   ├── build_worksheet.R (under development)
+ │   ├── build_rmd.R
+ │   └── build_ipynb.py (under development)
+ ├── CONTRIBUTING.md
+ ├── data -> /nfs/public-data/training
+ ├── docs/
+ │   ├── _archive.yml
+ │   ├── _config.yml
+ │   ├── assets/css/
+ │   ├── Gemfile
+ │   ├── _includes/
+ │   ├── _layouts/
+ │   └── _views/
+ ├── LICENSE (under development)
+ └── Makefile
 ```
 
-Each lesson repository will include the above files in addition to the topical
-material, carefully arranged within all or some of the following files and
-folders:
+Each lesson repository will include the above files **in addition to** lesson
+metadata and content wholly contained within the following files:
 
 ```
-*-lesson.git
-├── cache/*
-├── docs
-│   ├── assets/images/*
-│   ├── _data/lesson.yml
-│   └── _slides/*
-├── slides/*
-└─ README.md
-
+ *-lesson.git
+ ├── docs/
+ │   ├── assets/images/
+ │   ├── _data/lesson.yml
+ │   └── _slides/
+ ├── slides/
+[├── *.Rproj]
+ └─ README.md
 ```
 
 The Makefile includes targets for building and publishing lessons:
-  - `make preview` (default) to locally build `docs/_site` during development
-  - `make slides` to run the `bin/build_*` scripts that populate `docs/_slides`
+  - `make preview` (default) to build `docs/_site` locally during development
+  - `make slides` run the `bin/build_*` scripts that populate `docs/_slides`
   - `make upstream` merge updates made in the upstream `lesson-style` repository
   - `make archive $DATE` freeze the lesson in the `docs/_archive` collection
   - `make release` zip the handouts for attachment to a GitHub release
@@ -52,22 +50,22 @@ The Makefile includes targets for building and publishing lessons:
 
 ## Lesson Content
 
-Create a file for each "slide" in the top-level "slides" folder. Each file must
+Each file in the top-level `slides` folder is a lesson section. Each file must
 be written in either Markdown (with a ".md" extenion), RMarkdown (with a ".Rmd"
 extension), or Jupyter Notebook (with a ".ipynb" extension). A single lesson can
 use multiple types, if the code in each has no interdependencies. Rendered
 slides will be generated as Markdown within `docs/_slides`.
 
-Data for the lesson goes in the `public-data/training` folder on SESYNC's
-research storage server, which is symlinked from the `data` folder in each
-lesson. References to data in lesson code shall be via the relative path
+Data for the lesson goes in the `/nfs/public-data/training` folder on SESYNC's
+research storage server, which is symlinked to `data` in each lesson. References
+to data in lesson code shall be via the relative path
 `data/`. Figures produced during build go automatically to `docs/assets/images`,
 and any additional images must go there too. Archived, HTML versions of the
-lesson go in `docs/_archive`.
+lesson go automatically to `docs/_archive`.
 
-Including a `*.Rproj` makes it convenient to start an R session with the
+A `*.Rproj` is optional but convenient for starting an R session with the
 appropriate working directory. A `handouts.Rproj` file will be included in the
-[handouts] associated with any lesson having a `*.Rproj` file. All handouts
+handouts associated with any lesson having a `*.Rproj` file. All handouts
 (including data and worksheets) must be listed in the `docs/_data/lesson.yml`.
 
 Please **note** the following useful details about how content is rendered:
@@ -104,7 +102,7 @@ git push
 
 Go to the lesson repository's GitHub settings and select `master/docs` as the
 GitHub Pages source. Update the new `*-lesson` repo's description with the
-website address "https://cyberhelp.sesync.org/*-lesson" and verify the page
+website address `https://cyberhelp.sesync.org/*-lesson` and verify the page
 exists.
 
 Create a `README.md` file at the top of your `*-lesson` repository, following
@@ -144,14 +142,13 @@ sorter:          # a ordered list of slides (file names without extension)
 ```
 
 Files within the "slides" folder become a vertical stack of slides in a
-[Reveal.js] presentation: use "===" on it's own line to indicate a slide break.
-Stacks are concatenated horizontally in the order supplied by the `sorter` array
-in `docs/_data/lesson.yml`.
+[Reveal.js] presentation. Stacks are concatenated horizontally in the order
+specified by the `sorter` array in `docs/_data/lesson.yml`.
 
 ## Preview a Lesson
 
 Each lesson is a Jekyll site, automatically deployed by GitHub when pushed but
-also possible to build and serve locally. The following instructions work with a
+also possible to build and view locally. The following instructions work with a
 `*-lesson` repository opened as a project on https://rstudio.sesync.org.
 
 From RStudio, choose "Build All" from the "Build" tab. This builds a static
@@ -180,7 +177,7 @@ The archive actually depends on two releases, and both must exist on GitHub:
 found in the `styleurl` value in `docs/_archive.yml`.
 
 When preparing the first release, be sure to include all data and worksheets in
-a `handouts.zip` "binary" attachment and use the `tree` command to generate a
+a `handouts.zip` binary attachment and use the `tree` command to generate a
 file tree of the zip's contents.
 
 
@@ -210,4 +207,3 @@ the master branch. The `upstream` commits may not have a shared history with the
 
 [Reveal.js]: http://lab.hakim.se/reveal-js
 [lessons]: http://www.sesync.org/for-you/cyberinfrastructure/training/%C3%A0-la-carte-lessons
-[handouts]: https://github.com/sesync-ci/handouts

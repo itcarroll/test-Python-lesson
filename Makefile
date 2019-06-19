@@ -1,12 +1,16 @@
 # # Make Settings
 
 .DEFAULT_GOAL := preview
+
 .PHONY: release archive preview course slides upstream
+
 # do not run rules in parallel because bin/build_rmd.R 
 # (bin/build_ipynb.py) runs over all .Rmd (.ipynb) slides
 .NOTPARALLEL:
+
 # use user library for bundle install
 export GEM_HOME = $(HOME)/.gem
+
 # execute recipes with bash shell for pushd/popd
 SHELL := /bin/bash
 

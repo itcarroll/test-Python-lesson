@@ -51,7 +51,7 @@ The Makefile includes targets for building and publishing lessons:
 ## Lesson Content
 
 Each file in the top-level `slides` folder is a lesson section. Each file must
-be written in either Markdown (with a ".md" extenion), RMarkdown (with a ".Rmd"
+be written in either Markdown (with a ".md" extension), RMarkdown (with a ".Rmd"
 extension), or Jupyter Notebook (with a ".ipynb" extension). A single lesson can
 use multiple types, if the code in each has no interdependencies. Rendered
 slides will be generated as Markdown within `docs/_slides`.

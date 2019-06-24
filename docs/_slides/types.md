@@ -82,3 +82,13 @@ different types they will be coerced to the most flexible type.
 {:.output}
 
 
+===
+
+
+
+~~~r
+> counts <- c(3, 4, 5, 6, 8)
+> days <- c("S", "M", "T", "W", "Th", "F", "S")
+~~~
+{:title="Console" .input}
+

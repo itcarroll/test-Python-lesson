@@ -1,0 +1,480 @@
+---
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python Test</title>
+<meta name="description" content="A new lesson test">
+<link rel="canonical"
+      href="https://itcarroll.github.io/test-Python-lesson/2019/06/24/index.html">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/{{ site.github.owner_name }}/lesson-style@v3.0/docs/assets/css/default.css" >
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/{{ site.github.owner_name }}/lesson-style@v3.0/docs/assets/css/syntax.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/{{ site.github.owner_name }}/lesson-style@v3.0/docs/assets/css/static.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      rel="stylesheet"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous">
+    
+
+  </head>
+  <body>
+    <div class="page-content">
+      <div class="wrapper">
+        
+        
+<h1 style="text-transform: none;" id="python-test">Python Test</h1>
+
+<p>Lesson 3 with <em>Ian Carroll</em></p>
+
+<nav id="ToC">
+
+  <ul>
+    <li><a href="#/slides/load">Load Data</a></li>
+    <li><a href="#/slides/types">Data Types</a></li>
+    <li><a href="#/slides/exercise">Exercises</a></li>
+  </ul>
+</nav>
+
+<hr />
+<p><a name="/slides/load"></a></p>
+
+<h2 id="load-data">Load Data</h2>
+
+<p>We will use the function <code class="highlighter-rouge">read.csv()</code> to load data from a Comma Separated Value
+file. The essential argument for the function to read in data is the path to the
+file, other optional arguments adjust how the file is read.</p>
+
+<p class="notes">Additional file types can be read in using <code class="highlighter-rouge">read.table()</code>; in fact, <code class="highlighter-rouge">read.csv()</code>
+is a simple wrapper for the <code class="highlighter-rouge">read.table()</code> function having set some default
+values for some of the optional arguments (e.g. <code class="highlighter-rouge">sep = ","</code>).</p>
+
+<p>Type <code class="highlighter-rouge">read.csv(</code> into the console and then press <strong>tab</strong> to see what arguments
+this function takes. Hovering over each item in the list will show a description
+of that argument from the help documentation about that function. Specify the
+values to use for an argument using the syntax <code class="highlighter-rouge">name = value</code>.</p>
+
+<div class="language-python text-document highlighter-rouge" title="worksheet.py"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/species.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    id             genus          species     taxa
+0   AB        Amphispiza        bilineata     Bird
+1   AH  Ammospermophilus          harrisi   Rodent
+2   AS        Ammodramus       savannarum     Bird
+3   BA           Baiomys          taylori   Rodent
+4   CB   Campylorhynchus  brunneicapillus     Bird
+5   CM       Calamospiza      melanocorys     Bird
+6   CQ        Callipepla         squamata     Bird
+7   CS          Crotalus       scutalatus  Reptile
+8   CT     Cnemidophorus           tigris  Reptile
+9   CU     Cnemidophorus        uniparens  Reptile
+10  CV          Crotalus          viridis  Reptile
+11  DM         Dipodomys         merriami   Rodent
+12  DO         Dipodomys            ordii   Rodent
+13  DS         Dipodomys      spectabilis   Rodent
+14  DX         Dipodomys              sp.   Rodent
+15  EO           Eumeces        obsoletus  Reptile
+16  GS          Gambelia            silus  Reptile
+17  NL           Neotoma         albigula   Rodent
+18  NX           Neotoma              sp.   Rodent
+19  OL         Onychomys      leucogaster   Rodent
+20  OT         Onychomys         torridus   Rodent
+21  OX         Onychomys              sp.   Rodent
+22  PB       Chaetodipus          baileyi   Rodent
+23  PC            Pipilo        chlorurus     Bird
+24  PE        Peromyscus         eremicus   Rodent
+25  PF       Perognathus           flavus   Rodent
+26  PG         Pooecetes        gramineus     Bird
+27  PH       Perognathus         hispidus   Rodent
+28  PI       Chaetodipus      intermedius   Rodent
+29  PL        Peromyscus         leucopus   Rodent
+30  PM        Peromyscus      maniculatus   Rodent
+31  PP       Chaetodipus     penicillatus   Rodent
+32  PU            Pipilo           fuscus     Bird
+33  PX       Chaetodipus              sp.   Rodent
+34  RF   Reithrodontomys       fulvescens   Rodent
+35  RM   Reithrodontomys        megalotis   Rodent
+36  RO   Reithrodontomys         montanus   Rodent
+37  RX   Reithrodontomys              sp.   Rodent
+38  SA        Sylvilagus        audubonii   Rabbit
+39  SB          Spizella          breweri     Bird
+40  SC        Sceloporus           clarki  Reptile
+41  SF          Sigmodon      fulviventer   Rodent
+42  SH          Sigmodon         hispidus   Rodent
+43  SO          Sigmodon     ochrognathus   Rodent
+44  SS      Spermophilus        spilosoma   Rodent
+45  ST      Spermophilus     tereticaudus   Rodent
+46  SU        Sceloporus        undulatus  Reptile
+47  SX          Sigmodon              sp.   Rodent
+48  UL            Lizard              sp.  Reptile
+49  UP            Pipilo              sp.     Bird
+50  UR            Rodent              sp.   Rodent
+51  US           Sparrow              sp.     Bird
+52  ZL       Zonotrichia       leucophrys     Bird
+53  ZM           Zenaida         macroura     Bird
+</code></pre></div></div>
+
+<dl>
+  <dt>Question</dt>
+  <dd>How does <code class="highlighter-rouge">read.csv</code> determine the field names?</dd>
+  <dt>Answer</dt>
+  <dd class="fragment">The <code class="highlighter-rouge">read.csv</code> command assumes the first row in the file contains
+column names. Look at <code class="highlighter-rouge">?read.csv</code> to see the default <code class="highlighter-rouge">header = TRUE</code> argument.
+What exactly that means is described down in the “Arguments” section.</dd>
+</dl>
+
+<p>Use the assignment operator “&lt;-“ to load data into a variable for
+subsequent operations.</p>
+
+<div class="language-python text-document highlighter-rouge" title="worksheet.py"><div class="highlight"><pre class="highlight"><code><span class="n">animals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/animals.csv'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After reading in the “animals.csv” file, you can explore what types of data are
+in each column with the <code class="highlighter-rouge">str</code> function, short for “structure”.</p>
+
+<div class="language-python input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">animals</span><span class="o">.</span><span class="n">dtypes</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id                   int64
+month                int64
+day                  int64
+year                 int64
+plot_id              int64
+species_id          object
+sex                 object
+hindfoot_length    float64
+weight             float64
+dtype: object
+</code></pre></div></div>
+
+<p>Missing data, as interpreted by the <code class="highlighter-rouge">read.csv</code> function, is controlled by the
+<code class="highlighter-rouge">na.strings</code> argument. Override the default value of <code class="highlighter-rouge">'NA'</code> with the empty
+string, <code class="highlighter-rouge">''</code>, to properly interpret the “species_id” and “sex” columns.</p>
+
+<p class="notes">You can also specify multiple things to be interpreted as missing values, such
+as <code class="highlighter-rouge">na.strings = c("missing", "no data", "&lt; 0.05 mg/L", "XX")</code>.</p>
+
+<div class="language-python text-document highlighter-rouge" title="worksheet.py"><div class="highlight"><pre class="highlight"><code><span class="n">animals</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/animals.csv'</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s">''</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The data type is the same.</p>
+
+<div class="language-python input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="n">animals</span><span class="o">.</span><span class="n">dtypes</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>id                   int64
+month                int64
+day                  int64
+year                 int64
+plot_id              int64
+species_id          object
+sex                 object
+hindfoot_length    float64
+weight             float64
+dtype: object
+</code></pre></div></div>
+
+<p class="ToS"><a href="#/slides/load">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/types"></a></p>
+
+<h2 id="data-types">Data Types</h2>
+
+<p>A data frame is clearly a table, but what exactly is a table in the R
+environment? The <code class="highlighter-rouge">str</code> command gave an indication that each field has it’s own
+data type.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>double</td>
+      <td>3.1, 4, Inf, NaN</td>
+    </tr>
+    <tr>
+      <td>integer</td>
+      <td>4L, 0L, 999L</td>
+    </tr>
+    <tr>
+      <td>character</td>
+      <td>‘a’, ‘4’, ‘👏’</td>
+    </tr>
+    <tr>
+      <td>logical</td>
+      <td>TRUE, FALSE</td>
+    </tr>
+    <tr>
+      <td>missing</td>
+      <td>NA</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="data-structures">Data structures</h2>
+
+<p>A data frame is a compound object, built from one or more objects that hew to
+the basic data types. Like all data frames, “animals” is a “list”.</p>
+
+<div class="language-python input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+</code></pre></div></div>
+
+<p>The “list” is one of three one-dimensional data structurs you will regularly
+encounter.</p>
+
+<ul>
+  <li>Lists</li>
+  <li>Factors</li>
+  <li>Vectors</li>
+</ul>
+
+<h2 id="vectors">Vectors</h2>
+
+<p>Vectors are an array of values of the same type. Create a vector by combining
+elements of the same type together using the function <code class="highlighter-rouge">c()</code>.</p>
+
+<div class="language-python text-document highlighter-rouge" title="worksheet.py"><div class="highlight"><pre class="highlight"><code><span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>All elements of an vector must be the same type, so when you attempt to combine
+different types they will be coerced to the most flexible type.</p>
+
+<div class="language-python input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">'c'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 'c']
+</code></pre></div></div>
+
+<div class="language-r input highlighter-rouge" title="Console"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">counts</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">)</span><span class="w">
+</span><span class="o">&gt;</span><span class="w"> </span><span class="n">days</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"S"</span><span class="p">,</span><span class="w"> </span><span class="s2">"M"</span><span class="p">,</span><span class="w"> </span><span class="s2">"T"</span><span class="p">,</span><span class="w"> </span><span class="s2">"W"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Th"</span><span class="p">,</span><span class="w"> </span><span class="s2">"F"</span><span class="p">,</span><span class="w"> </span><span class="s2">"S"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p class="ToS"><a href="#/slides/types">Top of Section</a></p>
+
+<hr />
+<p><a name="/slides/exercise"></a></p>
+
+<h2 id="exercises">Exercises</h2>
+
+<h3 id="exercise-1">Exercise 1</h3>
+
+<p>Use the quadratic formula to find <script type="math/tex">x</script> that satisfies the
+equation <script type="math/tex">1.5 x^2 + 0.3 x - 2.9 = 0</script>.</p>
+
+<script type="math/tex; mode=display">\frac{-0.3 \pm \sqrt{0.3^2 - 4 \times 1.5 \times {-2.9}}}{2 \times 1.5}</script>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="m">-0.3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="m">0.3</span><span class="w"> </span><span class="o">^</span><span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1.5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">-2.9</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="m">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">1.5</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1.294035
+</code></pre></div></div>
+
+<h3 id="exercise-2">Exercise 2</h3>
+
+<p>By default, all character data is read in to a data.frame as factors. Use the
+<code class="highlighter-rouge">read.csv()</code> argument <code class="highlighter-rouge">stringsAsFactors</code> to suppress this behavior, then
+subsequently modify the <code class="highlighter-rouge">sex</code> column in <code class="highlighter-rouge">animals</code> to make it a factor. Remember
+that columns of a <code class="highlighter-rouge">data.frame</code> are identified to the R interpreter with the <code class="highlighter-rouge">$</code>
+operator, e.g. <code class="highlighter-rouge">animals$sex</code>.</p>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">animals</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s1">'data/animals.csv'</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">,</span><span class="w"> </span><span class="n">na.strings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="p">)</span><span class="w">
+</span><span class="n">animals</span><span class="o">$</span><span class="n">sex</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">factor</span><span class="p">(</span><span class="n">animals</span><span class="o">$</span><span class="n">sex</span><span class="p">)</span><span class="w">
+
+</span><span class="n">str</span><span class="p">(</span><span class="n">animals</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	35549 obs. of  9 variables:
+ $ id             : int  2 3 4 5 6 7 8 9 10 11 ...
+ $ month          : int  7 7 7 7 7 7 7 7 7 7 ...
+ $ day            : int  16 16 16 16 16 16 16 16 16 16 ...
+ $ year           : int  1977 1977 1977 1977 1977 1977 1977 1977 1977 1977 ...
+ $ plot_id        : int  3 2 7 3 1 2 1 1 6 5 ...
+ $ species_id     : chr  "NL" "DM" "DM" "DM" ...
+ $ sex            : Factor w/ 2 levels "F","M": 2 1 2 2 2 1 2 1 1 1 ...
+ $ hindfoot_length: int  33 37 36 35 14 NA 37 34 20 53 ...
+ $ weight         : int  NA NA NA NA NA NA NA NA NA NA ...
+</code></pre></div></div>
+
+<h3 id="exercise-3">Exercise 3</h3>
+
+<p>Use the <code class="highlighter-rouge">typeof</code> function to inspect the data type of <code class="highlighter-rouge">counts</code>. Do the same for
+another variable, call it <code class="highlighter-rouge">x</code>, to which you assign a <strong>list</strong> of numbers. What
+does the difference imply? Use <code class="highlighter-rouge">c</code> to combine <code class="highlighter-rouge">counts</code> with <code class="highlighter-rouge">x</code> and inspect this
+object with <code class="highlighter-rouge">typeof</code>. Does <code class="highlighter-rouge">c</code> always create vectors?</p>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">typeof</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "double"
+</code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">)</span><span class="w">
+</span><span class="n">typeof</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "list"
+</code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">z</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">counts</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w">
+</span><span class="n">typeof</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "list"
+</code></pre></div></div>
+
+<h3 id="exercise-4">Exercise 4</h3>
+
+<p>Create a data frame with two columns, one called “species” with four strings and
+another called “abund” with four numbers. Store your data frame as a variable
+called <code class="highlighter-rouge">data</code>.</p>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">species</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s1">'ape'</span><span class="p">,</span><span class="w"> </span><span class="s1">'bat'</span><span class="p">,</span><span class="w"> </span><span class="s1">'cat'</span><span class="p">,</span><span class="w"> </span><span class="s1">'dog'</span><span class="p">)</span><span class="w">
+</span><span class="n">abund</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="w">
+</span><span class="n">data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">data.frame</span><span class="p">(</span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">abund</span><span class="p">)</span><span class="w">
+
+</span><span class="n">str</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'data.frame':	4 obs. of  2 variables:
+ $ species: Factor w/ 4 levels "ape","bat","cat",..: 1 2 3 4
+ $ abund  : int  1 2 3 4
+</code></pre></div></div>
+
+<h3 id="exercise-5">Exercise 5</h3>
+
+<ol>
+  <li>Get weekdays using negative integers.</li>
+  <li>Get M-W-F using a vector of postitions generated by <code class="highlighter-rouge">seq()</code> that uses the
+<code class="highlighter-rouge">by</code> argument (don’t forget to <code class="highlighter-rouge">?seq</code> for help).</li>
+</ol>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">days</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="m">-7</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "M"  "T"  "W"  "Th" "F" 
+</code></pre></div></div>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;</span><span class="w"> </span><span class="n">days</span><span class="p">[</span><span class="n">seq</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">7</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">)]</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] "M" "W" "F"
+</code></pre></div></div>
+
+<h3 id="exercise-6">Exercise 6</h3>
+
+<p>The keywords <code class="highlighter-rouge">else</code> and <code class="highlighter-rouge">if</code> can be combined to allow flow control among more
+than two statements, as below. Expand the <code class="highlighter-rouge">first</code> function once again to
+differentiate between <code class="highlighter-rouge">dat</code> provided as a <code class="highlighter-rouge">matrix</code> and as a <code class="highlighter-rouge">data.frame</code>. It’s
+up to you what the “first” element of a matrix should be!</p>
+
+<div class="language-r text-document highlighter-rouge" title="Solution"><div class="highlight"><pre class="highlight"><code><span class="n">first</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is.vector</span><span class="p">(</span><span class="n">dat</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">is.matrix</span><span class="p">(</span><span class="n">dat</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dat</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="nf">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">m</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">)</span><span class="w">
+</span><span class="n">first</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="output highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1] 1
+</code></pre></div></div>
+
+<p class="ToS"><a href="#/slides/exercise">Top of Section</a></p>
+
+
+
+        <hr>
+
+<p>If you need to catch-up before a section of code will work, just squish it's
+🍅 to copy code above it into your clipboard. Then paste into your interpreter's
+console, run, and you'll be ready to start in on that section. Code copied by
+both 🍅 and 📋 will also appear below, where you can edit first, and then copy,
+paste, and run again.</p>
+
+<div class="output">
+  <pre id="ketchup" contenteditable="true"><code># Nothing here yet!</code></pre>
+</div>
+
+<script>
+$(document).ready(function(){
+  
+  // Add code help icons to code blocks
+  $('.input, .text-document').append('<ul class="code-help">');
+  $('.code-help')
+    .append('<li class="clipboard">📋</li>');
+  $('.text-document:not(.no-eval) .code-help')
+    .append('<li class="ketchup">🍅</li>');
+
+  // Bind copy actions to mouse clicks on icons
+  var $ketchup = $('#ketchup');
+  var rng = document.createRange();
+  var sel = window.getSelection();
+  $('.ketchup').click(function(){
+    var $prev = $(this)
+      .parents('.text-document')
+      .prevAll('.text-document:has(.ketchup)');
+    $ketchup.find('code').text($prev.find('pre').text());
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+  $('.text-document .clipboard').click(function(){
+    var pre = $(this).parents('.text-document').find('pre').text();
+    $ketchup.find('code').text(pre);
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+  $('.input .clipboard').click(function(){
+    var pre = $(this).parents('.input').find('pre').text();
+    pre = pre.replace(/(^|\n)[>+] /g, '$1');
+    $ketchup.find('code').text(pre);
+    rng.selectNodeContents($ketchup[0]);
+    sel.removeAllRanges();
+    sel.addRange(rng);
+    document.execCommand("copy");
+    sel.removeAllRanges();
+  });
+});
+</script>
+      </div>
+    </div>
+    <script>
+$(document).ready(function(){
+  // Add links to R and Python package repositories
+  $('a.rlib').map(function(){
+    this.href = 'https://cran.r-project.org/package=' + this.innerText;
+  });
+  $('a.pylib').map(function(){
+    this.href = 'https://pypi.python.org/pypi/' + this.innerText;
+  });
+});
+</script>
+
+  </body>
+</html>

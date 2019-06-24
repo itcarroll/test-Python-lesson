@@ -1,0 +1,86 @@
+---
+---
+
+## Environment
+
+In the RStudio IDE, the environment tab displays any variables added to R's
+vocabulary in the current session. In a brand new session, the R interpreter
+already recognizes many things, despite the environment being "empty".
+{:.notes}
+
+With an "empty" environment, the interpreter still recognizes:
+
+- any number
+- any string of characters
+- nearly universal operators (e.g. `+` and `/`)
+- operators specific to R (e.g. `$` and `%*%`)
+- functions in "base R"
+
+===
+
+To reference a number or function just type it in as above.
+To referece a string of characters, surround them in quotation marks.
+
+```{r}
+'ab.cd'
+```
+
+===
+
+Without quotation marks, the interpreter checks for things in the environment
+named `ab.cd` and doesn't find anything:
+
+```{r error = TRUE}
+ab.cd
+```
+
+===
+
+Question
+: Is it better to use `'` or `"`?
+
+Answer
+: {:.fragment} Neither one is better. You will often encounter stylistic choices
+like this, so if you don't have a personal preference try to mimic existing
+styles.
+
+===
+
+## Assignment
+
+You can expand the vocabulary known to the R interpreter by creating a new
+**variable**. Using the symbol `<-` is referred to as assignment: the output of
+any command to the right of `<-` gets the name given on its left.
+
+```{r}
+x <- seq(0, 100)
+```
+
+===
+
+You'll notice that nothing prints to the console, because we assigned the output to a variable.
+We can print the value of `x` by evaluating it without assignment.
+
+```{r}
+x
+```
+
+Assigning values to new variables (to the left of a `<-`) is the only time you
+can reference something previously unknown to the interpreter. All other
+commands must reference things already in the interpreter's vocabulary.
+{:.notes}
+
+===
+
+Once assigned to a variable, a value becomes known to R and you can refer to it in other commands.
+
+```{r}
+plot(x, sin(x * 2 * pi / 100))
+```
+
+===
+
+The environment is dynamic, but under your control!
+
+- Variables do not persist between sessions (unless loaded from .Rdata)
+- Variables only change their value on re-assignment

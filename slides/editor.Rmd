@@ -1,0 +1,95 @@
+---
+---
+
+## Editor
+
+The **console** is for evaluating commands you don't intend to keep or reuse.
+It's useful for testing commands and poking around. The **environment**
+represents the state of a current session. The **editor** reads and writes
+files--it is where you head to compose your R scripts.
+
+
+R scripts are simple text files that contain code you intend to run again and
+again; code to process data, perform analyses, produce visualizations, and even
+generate reports. The editor and console work together in the RStudio IDE, which
+gives you multiple ways to send parts of the script you are editing to the
+console for immediate evaluation. Alternatively you can "source" the entire
+script or run it from a shell with `Rscript`.
+{:.notes}
+
+===
+
+Open up "{{ site.handouts[0] }}" in the editor, and follow along by replacing
+the `...` placeholders with the code here. Then evalute just this line
+(Ctrl+Enter on Windows, ⌘+Enter on Mac OS).
+
+```{r title="{{ site.handouts[0] }}"}
+vals <- seq(1, 100)
+```
+
+===
+
+Our call to the function `seq` could have been much more explicit. We could give
+the arguments by the names that `seq` is expecting.
+
+```{r title="{{ site.handouts[0] }}"}
+vals <- seq(from = 1,
+            to = 100)
+```
+
+===
+
+Run that code by moving your cursor anywhere within those two lines and clicking
+"Run", or by using the keyboard shortcut Ctrl-Return or ⌘ Return.
+
+===
+
+Question
+: What's an advantage of naming arguments?
+
+Answer
+: {:.fragment} One advantage is that you can put them in any order. A related
+advantage is that you can then skip some arguments, which is fine to do if each
+skipped argument has a default value. A third advantage is code readability,
+which you should always be conscious of while writing in the editor.
+
+===
+
+## Readability
+
+Code readability in the editor cuts both ways: sometimes verbosity is useful,
+sometimes it is cumbersome.
+
+===
+
+The `seq()` function has an alternative form available when only the `from` and
+`to` arguments are needed.
+
+```{r}
+1:100
+```
+
+The `:` operator should be used whenever possible because it replaces a common,
+cumbersome function call with an brief, intuitive syntax. Likewise, the `assign`
+function duplicates the functionallity of the `<-` symbol, but is never used
+when the simpler operator will suffice.
+{:.notes}
+
+===
+
+## Function documentation
+
+How would you get to know these properties and the names of a function's
+arguments?
+
+```{r eval=FALSE}
+?seq
+```
+
+===
+
+How would you even know what function to call?
+
+```{r eval=FALSE}
+??sequence
+```

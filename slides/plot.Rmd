@@ -1,0 +1,41 @@
+---
+---
+
+## Base plotting
+
+R has excellent plotting capabilities for many types of graphics.
+The `plot()` function is the most basic plotting function, and uses the data provided to determine what kind of plot to make. 
+
+For more advanced plotting such as multi-faceted plots, the libraries [lattice](https://cran.r-project.org/package=lattice) and [ggplot2](https://cran.r-project.org/package=ggplot2) are excellent options. 
+
+===
+
+## Scatterplots
+
+Providing plots with separate "x" and "y" coordinates produces a scatterplot.
+
+```{r title="{{ site.handouts[0] }}"}
+plot(animals$hindfoot_length, animals$weight)
+```
+
+Using R's formula notation, as in `plot(weight ~ hindfoot_length, data = animals)`, is a more readable syntax for some.
+
+===
+
+## Histograms
+
+To plot binned counts of a single variable, use the `hist` function.
+
+```{r title="{{ site.handouts[0] }}"}
+hist(log(animals$weight))
+``` 
+
+===
+
+## Boxplots
+
+Use `boxplot` to compare the number of species seen each year.
+
+```{r title="{{ site.handouts[0] }}"}
+boxplot(log(weight) ~ year, data = animals)
+```

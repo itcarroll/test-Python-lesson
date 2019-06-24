@@ -7,4 +7,5 @@ instructor: Ian Carroll
 authors:
  - Ian Carroll
 sorter:
- - background
+ - load
+ - types

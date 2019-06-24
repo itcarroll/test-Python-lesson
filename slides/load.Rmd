@@ -1,0 +1,74 @@
+---
+---
+
+## Load Data
+
+We will use the function `read.csv()` to load data from a Comma Separated Value
+file. The essential argument for the function to read in data is the path to the
+file, other optional arguments adjust how the file is read.
+
+Additional file types can be read in using `read.table()`; in fact, `read.csv()`
+is a simple wrapper for the `read.table()` function having set some default
+values for some of the optional arguments (e.g. `sep = ","`).
+{:.notes}
+
+===
+
+Type `read.csv(` into the console and then press **tab** to see what arguments
+this function takes. Hovering over each item in the list will show a description
+of that argument from the help documentation about that function. Specify the
+values to use for an argument using the syntax `name = value`.
+
+```{python, handout = 1}
+import pandas as pd
+
+pd.read_csv('data/species.csv')
+```
+
+===
+
+Question
+: How does `read.csv` determine the field names?
+
+Answer
+: {:.fragment} The `read.csv` command assumes the first row in the file contains
+column names. Look at `?read.csv` to see the default `header = TRUE` argument.
+What exactly that means is described down in the "Arguments" section.
+
+===
+
+Use the assignment operator "<-" to load data into a variable for
+subsequent operations.
+
+```{python, handout = 1}
+animals = pd.read_csv('data/animals.csv')
+``` 
+
+===
+
+After reading in the "animals.csv" file, you can explore what types of data are
+in each column with the `str` function, short for "structure".
+
+```{python}
+animals.dtypes
+```
+
+===
+
+Missing data, as interpreted by the `read.csv` function, is controlled by the
+`na.strings` argument. Override the default value of `'NA'` with the empty
+string, `''`, to properly interpret the "species_id" and "sex" columns.
+
+You can also specify multiple things to be interpreted as missing values, such
+as `na.strings = c("missing", "no data", "< 0.05 mg/L", "XX")`.
+{:.notes}
+
+```{python, handout = 1}
+animals = pd.read_csv('data/animals.csv', na_values='')
+``` 
+
+The data type is the same.
+
+```{python}
+animals.dtypes
+```

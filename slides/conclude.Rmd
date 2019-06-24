@@ -1,0 +1,40 @@
+---
+---
+
+## Review
+
+In this introduction to R, we touched on several key parts of scripting for data analysis.
+
+- RStudio panes
+- Variable assignment
+- Data structures
+- Subsetting data
+- Functions
+- Flow control
+
+===
+
+## Special characters in R
+
+Perhaps more than most languages, an R script can appear like a jumble of
+archaic symbols. Here is a little table of characters to recognize as having
+special meaning.
+
+===
+
+| Symbol              | Meaning                      |
+| -------             | ---------                    |
+| `?`                 | get help                     |
+| `#`                 | comment                      |
+| `:`                 | sequence                     |
+| `::`, `:::`         | access namespaces (advanced) |
+| `<-`                | assignment                   |
+| `$`, `[ ]`, `[[ ]]` | subsetting                   |
+| `% %`               | infix operators, e.g. `%*%`  |
+| `{ }`               | statements                   |
+| `.`                 |                              |
+| `@`                 | slot (advanced)              |
+
+The `.` in R has no fixed meaning and is often used as `_` might be used to
+separate words in a variable name.
+{:.notes}

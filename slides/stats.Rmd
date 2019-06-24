@@ -1,0 +1,76 @@
+---
+---
+
+## Distributions and Statistics
+
+Since it is designed for statistics, R can easily draw random numbers from statistical distributions and calculate distribution values. 
+
+===
+
+To generate random numbers from a normal distribution, use the function `rnorm()`
+
+```{r title="{{ site.handouts[0] }}"}
+samp <- rnorm(n = 10)
+```
+
+```{r}
+samp
+```
+
+===
+
+| Function  | Returns                                      | Notes                     |
+|-----------+----------------------------------------------+---------------------------|
+| `rnorm()` | Draw random numbers from normal distribution | Specify `n`, `mean`, `sd` |
+| `dnorm()` | Probability density at a given number        |                           |
+| `pnorm()` | Cumulative probability up to a given number  | left-tailed by default    |
+| `qnorm()` | The quantile given a cumulative probability  | opposite of pnorm         |
+
+===
+
+Statistical distributions and their functions.
+See *Table 14.1* in **R for Everyone** by Jared Lander for a full table.
+
+| Distribution | Functions     |
+|--------------+---------------|
+| Normal       | *norm         |
+| Binomial     | *binom        |
+| Poisson      | *pois         |
+| Gamma        | *gamma        |
+| Exponential  | *exp          |
+| Uniform      | *unif         |
+| Logistic     | *logis        |
+
+===
+
+R has built in functions for handling many statistical tests. 
+
+```{r title="{{ site.handouts[0] }}"}
+x <- rnorm(n = 100, mean = 25, sd = 7)
+y <- rbinom(n = 100, size = 50, prob = .85)
+```
+
+```{r}
+t.test(x, y)
+```
+
+===
+
+Linear regression with the `lm()` function uses a formula notation to specify relationships between variables (e.g. `y ~ x`).
+
+```{r title="{{ site.handouts[0] }}"}
+fit <- lm(y ~ x)
+```
+
+```{r}
+summary(fit)
+```
+
+===
+
+## Exercise 8
+
+Recall the formula notation used to plot hindfoot_length against weight for the observations in the `animals` data frame: `plot(hindfoot_length ~ weight, data = animals)`. Instead of the `plot` function, use the `lm` function to estimate the coefficient of `log(weight)` as a predictor of `log(hindfoot_length)`.
+
+[View solution](#solution-8)
+{:.notes}

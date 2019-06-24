@@ -1,0 +1,84 @@
+---
+---
+
+## Data Types
+
+A data frame is clearly a table, but what exactly is a table in the R
+environment? The `str` command gave an indication that each field has it's own
+data type.
+
+===
+
+| Type      | Example           |
+|-----------+-------------------|
+| double    | 3.1, 4, Inf, NaN  |
+| integer   | 4L, 0L, 999L      |
+| character | 'a', '4', '👏'    |
+| logical   | TRUE, FALSE       |
+| missing   | NA                |
+
+===
+
+## Data structures
+
+A data frame is a compound object, built from one or more objects that hew to
+the basic data types. Like all data frames, "animals" is a "list".
+
+
+
+~~~python
+> type(animals)
+~~~
+{:title="Console" .input}
+
+
+~~~
+<class 'pandas.core.frame.DataFrame'>
+~~~
+{:.output}
+
+
+
+===
+
+The "list" is one of three one-dimensional data structurs you will regularly
+encounter.
+
+- Lists
+- Factors
+- Vectors
+
+===
+
+## Vectors
+
+Vectors are an array of values of the same type. Create a vector by combining
+elements of the same type together using the function `c()`.
+
+
+
+~~~python
+counts = [4, 3, 7, 5, 2]
+~~~
+{:title="{{ site.data.lesson.handouts[0] }}" .text-document}
+
+
+===
+
+All elements of an vector must be the same type, so when you attempt to combine
+different types they will be coerced to the most flexible type.
+
+
+
+~~~python
+> [1, 2, 'c']
+~~~
+{:title="Console" .input}
+
+
+~~~
+[1, 2, 'c']
+~~~
+{:.output}
+
+

@@ -1,0 +1,52 @@
+---
+---
+
+## Flow Control
+
+The R interpreter's "focus" flows through a script (or any section of code you
+run) line by line. Without additional instruction, every line is processed from
+the top to bottom. "Flow control" is the generic term for causing the
+interpreter to repeat or skip certain lines, using concepts like "for loops" and
+"if/else conditionals".
+
+===
+
+Flow control happens within blocks of code isolated between curly braces `{` and
+`}`, known as "statements".
+
+```{r eval=FALSE, title="{{ site.handouts[0] }}"}
+if (...) {
+    ...
+} else {
+    ...
+}
+```
+
+The keyword `if` must be followed by a logical test which determines, at runtime, what to do next.
+The R interpreter goes to the first statement if the logical value is `TRUE` and to the second statement if it's `FALSE`.
+{:.notes}
+
+===
+
+An if/else conditional would allow the `first` function to avoid the error thrown by calling `first(counts)`.
+
+```{r title="{{ site.handouts[0] }}"}
+first <- function(dat) {
+    if (is.vector(dat)) {
+        result <- dat[1]
+    } else {
+        result <- dat[1, ]
+    }
+    return(result)
+}
+```
+
+===
+
+```{r}
+first(df)
+```
+
+```{r}
+first(counts)
+```
